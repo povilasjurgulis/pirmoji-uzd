@@ -73,16 +73,28 @@ int main(){
             nuskriaustukai.push_back(studentas);
     }
     else if (p.koks_konteineris == 2)
+{
+    size_t i = 0;
+    while (i < studentai.size())
     {
-    // Rezervuojame vietos nuskriaustukams 
-    nuskriaustukai.reserve(studentai.size() / 2); // Apytiksliai
-    // Isrenkame studentus su mazesniais nei 5 balais
-    auto partition_point = std::stable_partition(studentai.begin(), studentai.end(), [](const Studentas& s) { return s.galutinis >= 5.0; });
-    // Perkeliame nuskriaustukus i ju konteineri
-    nuskriaustukai.insert(nuskriaustukai.end(), partition_point, studentai.end());
-    // Istriname perkeltus elementus is pradinio konteinerio
-    studentai.erase(partition_point, studentai.end());
+        if (studentai[i].galutinis < 5) 
+        {
+            // Add to nuskriaustukai
+            nuskriaustukai.push_back(studentai[i]);
+            // Move the last element to the current position (if it's not already the last)
+            if (i != studentai.size() - 1)
+                studentai[i] = studentai.back();
+            // Remove the last element
+            studentai.pop_back();
+            // Don't increment i since we now have a new element at position i
+        } 
+        else 
+        {
+            // Only increment when we don't remove an element
+            ++i;
+        }
     }
+}
     else if(p.koks_konteineris == 3)
     {
     // Vietoj ciklo galima panaudoti std::partition arba std::remove_copy_if
