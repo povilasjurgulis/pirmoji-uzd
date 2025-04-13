@@ -74,12 +74,21 @@ int main(){
     }
     else if (p.koks_konteineris == 2)
     {
-    // Isrenkame studentus su mazesniais nei 5 balais
-    auto partition_point = std::stable_partition(studentai.begin(), studentai.end(), [](const Studentas& s) { return s.galutinis >= 5.0; });
-    // Perkeliame nuskriaustukus i ju konteineri
-    nuskriaustukai.insert(nuskriaustukai.end(), partition_point, studentai.end());
-    // Istriname perkeltus elementus is pradinio konteinerio
-    studentai.erase(partition_point, studentai.end());
+    for (auto it = studentai.begin(); it != studentai.end(); )
+    {
+        if (it->galutinis < 5) 
+        {
+            // Add to nuskriaustukai
+            nuskriaustukai.push_back(*it);
+            // Erase the current element and update the iterator
+            it = studentai.erase(it);
+        } 
+        else 
+        {
+            // Increment the iterator when we don't remove an element
+            ++it;
+        }
+    }
     }
     else if(p.koks_konteineris == 3)
     {

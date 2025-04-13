@@ -5,7 +5,6 @@ int main(){
     cout<<"Spauskite 1, jeigu norite pradeti darba, 2 - jeigu norite baigti darba: "; 
     cin>>p.e; ivedimas1(p.e, "pradeti", "baigti", 1, 1, 2);
     if(p.e == 2) return 0;
-    time_point<high_resolution_clock> start; // Sukuriame laiko pradzios kintamaji
 
     srand(time(NULL));
     cout<<"Spauskite 1, jeigu norite, kad galutiniam balui butu naudojamas vidurkis, 2 - jeigu mediana: "; 
@@ -29,6 +28,8 @@ int main(){
     cout<<"Spauskite 4, jeigu norite, kad visi duomenys butu nuskaityti is failo: "; 
     cin>>p.choice; ivedimas2(p.choice);
     }
+    time_point<high_resolution_clock> start; // Sukuriame laiko pradzios kintamaji
+
     //If statement'ai, kurie atlieka veiksmus pagal vartotojo pasirinkima:
     ifs(vard_size, pav_size, p, st, studentai, vardai, pavardes, randomVyrVardai, randomMotVardai, randomVyrPavarde, randomMotPavarde, start);
 
@@ -55,12 +56,12 @@ int main(){
     cin>>p.kur_isvesti; ivedimas1(p.kur_isvesti, "isvesti i failus", "neisvesti i failus", 0, 1, 3);
     string pav = " "; // Failo pavadinimas
 
-    auto start2 = high_resolution_clock::now(); // Pradedame skaiciuoti laika
-
     cout<<"Spauskite 1, jeigu norite, kad studentu konteineris butu isskaidytas i du naujus to paties tipo konteinerius: kietiakai ir nuskriaustukai, "<<endl; 
     cout<<"2 - jeigu norite isskaidyti panaudojant tik viena nauja konteineri nuskriaustukai, " << endl;
     cout<<"3 - jeigu norite naudoti 3 strategija: ";
     cin>>p.koks_konteineris; ivedimas1(p.koks_konteineris, "du naujus konteinerius", "viena nauja konteineri", 0, 1, 3);
+
+    auto start2 = high_resolution_clock::now(); // Pradedame skaiciuoti laika
 
     //Studentu padalinimas i dvi grupes:
     Timer t2;
@@ -73,7 +74,7 @@ int main(){
             nuskriaustukai.push_back(studentas);
     }
     else if (p.koks_konteineris == 2)
-{
+    {
     size_t i = 0;
     while (i < studentai.size())
     {
@@ -94,7 +95,7 @@ int main(){
             ++i;
         }
     }
-}
+    }
     else if(p.koks_konteineris == 3)
     {
     // Vietoj ciklo galima panaudoti std::partition arba std::remove_copy_if
@@ -151,8 +152,7 @@ int main(){
     auto end2 = high_resolution_clock::now(); // Skaiciavimo pabaiga
     duration<double> diff2 = end2-start2; // Skaiciuojame skirtuma
     duration<double> diffFinal = diff+diff1+diff2;
-    // if(p.choice==4)
-    // cout<<"Programos vykdymo laikas: "<<diffFinal.count()<<" s\n"<<endl;
+    cout<<"Programos vykdymo laikas: "<<diffFinal.count()<<" s\n"<<endl;
     studentai.clear();
     nuskriaustukai.clear();
     if(p.koks_konteineris == 1)
