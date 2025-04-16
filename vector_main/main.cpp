@@ -75,25 +75,14 @@ int main(){
     }
     else if (p.koks_konteineris == 2)
     {
-    size_t i = 0;
-    while (i < studentai.size())
+    while(&studentai.back() != &studentai.front())
     {
-        if (studentai[i].galutinis < 5) 
+        
+        if (studentai.back().galutinis < 5) 
         {
-            // Add to nuskriaustukai
-            nuskriaustukai.push_back(studentai[i]);
-            // Move the last element to the current position (if it's not already the last)
-            if (i != studentai.size() - 1)
-                studentai[i] = studentai.back();
-            // Remove the last element
+            nuskriaustukai.push_back(studentai.back());
             studentai.pop_back();
-            // Don't increment i since we now have a new element at position i
         } 
-        else 
-        {
-            // Only increment when we don't remove an element
-            ++i;
-        }
     }
     }
     else if(p.koks_konteineris == 3)
